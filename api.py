@@ -13,7 +13,7 @@ app = FastAPI(title = "Sentiment Analyzer API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace "*" with your frontend domain
+    allow_origins=["https://sentiment-analyz.netlify.app"],  # In production, replace "*" with your frontend domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
