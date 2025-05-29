@@ -5,7 +5,12 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 
-STOPWORDS = set(stopwords.words('english'))
+import nltk
+nltk.data.path.append("./nltk_data")
+from nltk.corpus import stopwords
+
+STOPWORDS = stopwords.words("english")
+
 stemmer = PorterStemmer()
 
 def clean_text(text):
