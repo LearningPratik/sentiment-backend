@@ -8,10 +8,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 logger = get_logger(__name__)
 
-# Safe way to avoid re-downloading if already present
-nltk.download("stopwords")
-nltk.download("punkt")  # If you use tokenizers
-
 # Initialize fastapi app
 app = FastAPI(title = "Sentiment Analyzer API")
 
