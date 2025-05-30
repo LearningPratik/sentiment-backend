@@ -1,9 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from pipeline.predictor import load_model, predict_sentiment
+from pipeline.preprocessor import clean_text
 from config import MODEL_PATH
 from utils.logger import get_logger
 from fastapi.middleware.cors import CORSMiddleware
+import joblib
 
 
 logger = get_logger(__name__)
@@ -21,11 +23,13 @@ app.add_middleware(
 
 
 # load model at startup
-try:
-    model = load_model(MODEL_PATH)
-except Exception as e:
-    logger.critical(f"Failed to load the model : {e}")
-    model = None
+# try:
+#     model = load_model(MODEL_PATH)
+# except Exception as e:
+#     logger.critical(f"Failed to load the model : {e}")
+#     model = None
+
+model = joblib.load(MODEL_PATH)
 
 # Request body
 class SentimentRequest(BaseModel):
@@ -43,7 +47,9 @@ def predict(request: SentimentRequest):
     if not request.text:
         raise HTTPException(status_code = 400, detail = "Text input is required")
     
-    sentiment = predict_sentiment(model, request.text)
+    # sentiment = predict_sentiment(model, request.text)
+    cleaned = clean_text(text)
+    sentiment = model.predict(cleaned)[0]
     
     if sentiment is None:
         raise HTTPException(status_code=500, detail="Prediction failed")
