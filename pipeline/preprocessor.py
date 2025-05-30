@@ -2,14 +2,14 @@ import re
 import string
 import nltk
 
-from nltk.corpus import stopwords
+# from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 
 import nltk
-nltk.data.path.append("./nltk_data")
-from nltk.corpus import stopwords
+# nltk.data.path.append("./nltk_data")
+# from nltk.corpus import stopwords
 
-STOPWORDS = stopwords.words("english")
+# STOPWORDS = stopwords.words("english")
 
 stemmer = PorterStemmer()
 
@@ -30,7 +30,7 @@ def clean_text(text):
         text = nltk.word_tokenize(text)
         
         # remove stopwords
-        text = [t for t in text if t not in STOPWORDS]
+        # text = [t for t in text if t not in STOPWORDS]
         
         # apply stemming
         text = [stemmer.stem(t) for t in text]
